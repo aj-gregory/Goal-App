@@ -1,0 +1,10 @@
+<h1><%= @user.username %></h1>
+
+<h2>Goals</h2>
+<ul>
+<% @goals.each do |goal| %>
+  <% next if goal.is_private && goal.user != current_user %>
+	<li><%= link_to goal.title, goal_url(goal) %>
+		<%= "(completed)" if goal.completed %></li>
+<% end %>
+</ul>

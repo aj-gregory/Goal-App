@@ -20,21 +20,20 @@ describe "the signup process" do
     it "shows username on the homepage after signup" do
       expect(page).to have_content "testing_username"
     end
-
   end
-
 end
 
 describe "logging in" do
-  before(:each) do
+  before(:all) do
+    @user = FactoryGirl.create(:user)
     visit new_session_url
-    fill_in 'username', :with => "testing_username"
+    fill_in 'username', :with => @user.username
     fill_in 'password', :with => "ilovecats"
     click_on "Sign In"
   end
 
   it "shows username on the homepage after login" do
-    expect(page).to have_content "testing_username"
+    expect(page).to have_content @user.username
   end
 
 end
@@ -48,11 +47,22 @@ describe "logging out" do
 
   it "doesn't show username on the homepage after logout" do
     visit new_session_url
-    fill_in 'username', :with => "testing_username"
+    @user = FactoryGirl.create(:user)
+    fill_in 'username', :with => @user.username
     fill_in 'password', :with => "ilovecats"
     click_on "Sign In"
     click_on "Sign Out"
-    expect(page).not_to have_content "testing_username"
+    expect(page).not_to have_content @user.username
+  end
+
+  it "redirects users to new session after logout" do
+    visit new_session_url
+    @user = FactoryGirl.create(:user)
+    fill_in 'username', :with => @user.username
+    fill_in 'password', :with => "ilovecats"
+    click_on "Sign In"
+    click_on "Sign Out"
+    expect(page).to have_content "Sign In"
   end
 
 end

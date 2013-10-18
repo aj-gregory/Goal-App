@@ -1,0 +1,10 @@
+<h1><%= @goal.title %></h1>
+<h2><%= link_to @goal.user.username, user_url(@goal.user) %>'s Goal</h2>
+<% if @goal.user == current_user && !@goal.completed%>
+<%= button_to "Goal Completed", goal_url(@goal), :method => :put %>
+<% end %>
+
+<% if @goal.completed %>
+<h3><%= @goal.user.username %> completed this goal!</h3>
+<% end %>
+<p><%= @goal.body %></p>
