@@ -16,7 +16,6 @@ describe "Cheers" do
   end
 
   it "Allows users to cheer other's goals" do
-    save_and_open_page
     click_on "Cheer"
     expect(@goal.cheers.count).to be > 0
   end
