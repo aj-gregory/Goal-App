@@ -4,6 +4,10 @@
 <%= button_to "Goal Completed", goal_url(@goal), :method => :put %>
 <% end %>
 
+<% if possible_to_cheer? %>
+  <%= button_to "Cheer", cheers_url( :goal_id => @goal.id ), :method => :post %>
+<% end %>
+
 <% if @goal.completed %>
 <h3><%= @goal.user.username %> completed this goal!</h3>
 <% end %>

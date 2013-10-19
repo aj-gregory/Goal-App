@@ -15,4 +15,8 @@ module SessionsHelper
     end
   end
 
+  def possible_to_cheer?
+    current_user && @goal.user != current_user && !@goal.cheers.pluck(:user_id).include?(current_user.id)
+  end
+
 end
